@@ -7,11 +7,26 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
+// Install react-native-elements
+// import { CheckBox } from 'react-native-elements'
+
 export default function ToDoCard({ item, pressHandler }) {
 
     return (
         <TouchableOpacity onPress={() => pressHandler(item.key)}>
             <View style={styles.item}>
+
+            
+            {/* <CheckBox
+                center
+                title='Click Here to Remove This Item'
+                iconRight
+                iconType='material'
+                checkedIcon='clear'
+                uncheckedIcon='add'
+                checkedColor='red'
+                
+            /> */}
                 <MaterialIcons name="delete" size={18} color='#333'/>
                 <Text style={styles.itemText}>{item.text}</Text>
             </View>
