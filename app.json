@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ToDo-FirstApplication",
-    "slug": "ToDo-FirstApplication",
+    "name": "ToDo-Application",
+    "slug": "todo-application",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,6 +21,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Simple To-Do application for school purposes",
+    "githubUrl": "https://github.com/GoranACM/ToDo-Application"
   }
 }

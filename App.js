@@ -4,7 +4,7 @@
 // 2020
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback, FlatList, TouchableOpacity, Modal, Button, Alert, CheckBox } from 'react-native';
+import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback, FlatList, Platform, Modal, Button, Alert, CheckBox } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from "./components/header";
 import AddTodo from './components/addToDo';
@@ -51,7 +51,7 @@ export default function App() {
         <Header />
           <Icon style={styles.infoButton}
             raised
-            name='info'
+            name='info-circle'
             type='font-awesome'
             color='#fff'
             onPress={() => setModalVisible(!modalVisible)} 
@@ -109,10 +109,10 @@ const styles = StyleSheet.create({
   /* Style for info button */
   infoButton: {
     position: 'absolute',
-    marginTop: 50,
+    marginTop: 55,
     right: 35,
     textAlign: 'center',
-    fontSize: 40,
+    fontSize: 35,
     fontWeight: 'bold',
   },
   /* Style for modal background */
@@ -128,8 +128,8 @@ const styles = StyleSheet.create({
       backgroundColor: "#ffffff",
       marginLeft: 40,
       marginRight: 40,
-      marginTop: 200,
-      marginBottom: 200,
+      marginTop: Platform.OS === 'ios' ? 160 : 200,
+      marginBottom: Platform.OS === 'ios' ? 160 : 200,
       borderRadius: 10,
   },
   /* Title in the info modal */
