@@ -4,12 +4,17 @@
 // 2020
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback, FlatList, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback, FlatList, TouchableOpacity, Modal, Button, Alert, CheckBox } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from "./components/header";
 import AddTodo from './components/addToDo';
 import ToDoCard from './components/toDoCard';
+import MyModal from './components/modal';
 
 export default function App() {
+
+  const [modalVisible, setModalVisible] = useState(false);
+
 
   const [todos, setTodos]  = useState([
     
@@ -41,9 +46,34 @@ export default function App() {
     <TouchableWithoutFeedback onPress={() => {
       Keyboard.dismiss();  /* Keyboard dismiss on side press */
     }}>
-      <View style={styles.container}>
+    
+      <View style={ styles.container }>
         <Header />
-        <View style={styles.content}>
+          <Icon style={styles.infoButton}
+            raised
+            name='info'
+            type='font-awesome'
+            color='#fff'
+            onPress={() => setModalVisible(!modalVisible)} 
+          />
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={modalVisible}
+          >
+            <View style={styles.modalBackground}>
+                <View style={styles.modal}>
+                  <View style={styles.modalTitle}>
+                    <Text style={styles.modalTitleText}>HOW TO USE THE APP</Text>
+                  </View>
+                  <MyModal />
+                  <View style={styles.modalButton}>
+                    <Button title={"OKAY"} onPress={ () => { setModalVisible(!modalVisible) }} color={'#11a9b0'}/>
+                  </View>                
+                </View>                               
+            </View>
+          </Modal>         
+        <View style={ styles.content }>        
           <AddTodo submitHandler={submitHandler}/>
           <View>
             <FlatList 
@@ -56,8 +86,7 @@ export default function App() {
           <StatusBar />
         </View>     
       </View>         
-    </TouchableWithoutFeedback>
-     
+    </TouchableWithoutFeedback>     
   );
 }
 
@@ -76,5 +105,46 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
     marginTop: 20,
+  },
+  /* Style for info button */
+  infoButton: {
+    position: 'absolute',
+    marginTop: 50,
+    right: 35,
+    textAlign: 'center',
+    fontSize: 40,
+    fontWeight: 'bold',
+  },
+  /* Style for modal background */
+  modalBackground: {
+    backgroundColor: "#000000aa", 
+    flex: 1,
+  },
+  /* Style for the modal pop-up*/
+  modal: {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'space-evenly',
+      backgroundColor: "#ffffff",
+      marginLeft: 40,
+      marginRight: 40,
+      marginTop: 200,
+      marginBottom: 200,
+      borderRadius: 10,
+  },
+  /* Title in the info modal */
+  modalTitle: {
+    borderBottomWidth: 3,
+    paddingBottom: 10,
+    borderBottomColor: 'gray'
+  },
+  modalTitleText: {
+    textAlign: 'center',
+    fontSize: 25,   
+  },
+  /* Button to close modal */
+  modalButton: {
+    marginLeft: 40,
+    marginRight: 40,
   }
 });

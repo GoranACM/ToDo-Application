@@ -5,10 +5,6 @@
 
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, CheckBox } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-
-// Install react-native-elements
-// import { CheckBox } from 'react-native-elements'
 
 export default function ToDoCard({ item, pressHandler }) {
     const [isSelected, setSelection] = useState(false);
@@ -25,8 +21,7 @@ export default function ToDoCard({ item, pressHandler }) {
                         onValueChange={setSelection}
                         style={styles.checkbox}               
                     /> 
-                </View>
-                {/* <MaterialIcons name="delete" size={18} color='#333'/> */}
+                </View>               
                 <Text 
                     style={[
                         {textDecorationLine: isSelected ? "line-through" : "none"},
@@ -54,16 +49,13 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
 
-    itemTextCrossed: {
-        textDecorationLine: "line-through",
-    },
-
     checkboxContainer: {
         flexDirection: "row",
-        
+        borderRadius: 50
     },
 
     checkbox: {
         alignSelf: "center",
+        
     },
 });
