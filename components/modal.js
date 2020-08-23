@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { StyleSheet, Text, View, Button, CheckBox } from 'react-native';
+//import CheckBox from '@react-native-community/checkbox';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function MyModal() {
@@ -12,18 +13,18 @@ export default function MyModal() {
       return (
         <View>
             <View style={styles.modalItem}>
-                <Text>1. Click on the __________ line</Text>
+                <Text style={styles.modalText}>1. Click on the __________ line</Text>
             </View>
             <View style={styles.modalItem}>
                 <Text>2. Start typing your TODO</Text>
             </View>
             <View style={styles.modalItem}>
-                <Text>3. Click the </Text> 
-                <Button disabled={true} title={"ADD TODO"} width={10}/>
-                <Text> to create a new task!</Text>
+                <Text style={styles.modalText}>3. Click the</Text> 
+                <Button disabled={true} title={"ADD TODO"}/>
+                <Text style={styles.modalText}>to create a new task!</Text>
             </View>
             <View style={styles.modalItem}>
-                <Text>4. Tick the </Text>
+                <Text style={styles.modalText}>4. Tick the </Text>
                 <CheckBox
                     value={false}
                     disabled={true}
@@ -33,16 +34,17 @@ export default function MyModal() {
                     raised
                     name='arrow-right'
                     type='font-awesome'
+                    style={styles.modalText}
                 />
                 <CheckBox
                     value={true}
                     disabled={true}
                     style={styles.checkbox}               
                 />
-                <Text> to cross off a task!</Text>                                  
+                <Text style={styles.modalText}> to cross off a task!</Text>                                  
             </View>
             <View style={styles.modalItem}>
-                <Text>5. Click on any task to remove it! </Text>
+                <Text style={styles.modalText}>5. Click on any task to remove it! </Text>
             </View> 
              
         </View>                 
@@ -57,6 +59,14 @@ export default function MyModal() {
         borderBottomWidth: 1,
         paddingBottom: 10,
         paddingTop: 10,
-        borderBottomColor: 'gray'
+        borderBottomColor: 'gray',
+    },
+
+    modalText: {
+        textAlignVertical: 'center'
+    },
+
+    checkbox: {
+        tintColor: 'black'
     },
   });

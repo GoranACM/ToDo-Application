@@ -2,9 +2,11 @@
 // Student ID 7108
 // Academy of Information Technology
 // 2020
+
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback, FlatList, Platform, Modal, Button, Alert, CheckBox } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback, FlatList, Platform, Modal, Button, Alert, AsyncStorage } from 'react-native';
+//import AsyncStorage from '@react-native-community/async-storage'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from "./components/header";
 import AddTodo from './components/addToDo';
@@ -15,31 +17,69 @@ export default function App() {
 
   const [modalVisible, setModalVisible] = useState(false);
 
+  const STORAGE_KEY = '@saveTodo'
 
   const [todos, setTodos]  = useState([
     
   ]);
 
+  /* Replace the didMount */
+  useEffect(() => {
+    loadList()
+  }, [])
+
+  /* Press to delete a todo and then save the list */
   const pressHandler = (key) => {
     setTodos((prevTodos) => {
       return prevTodos.filter(todo => todo.key != key);
     });
+    saveList()
   }
 
+  /* Create a new todo on button click and save to the list */
   const submitHandler = (text) => {
+    /* Check if the input has at least 2 characters */
     if (text.length > 2) {
-    setTodos((prevTodos) => {
-      return [
-        { text: text, key: new Date().getTime().toString() },
-        ...prevTodos,
-      ];
-    })
-  } else {
-    Alert.alert('OOPS!', 'ToDo must be more than 3 letters long...', [
-      {text: 'Got it!', onPress: () => console.log('alert closed')}
-    ]);
-  }  
-}
+      setTodos((prevTodos) => {
+        return [
+          { text: text, key: new Date().getTime().toString() },
+          ...prevTodos,     
+        ];
+      })
+    } else {
+      /* Warn user about the ampunt of characters */
+      Alert.alert('OOPS!', 'ToDo must be more than 3 letters long...', [
+        {text: 'Got it!', onPress: () => console.log('alert closed')}
+      ]);
+      
+    }  
+    saveList()
+  }
+
+  /* Saving the list of todos */
+  const saveList = async (todos) => {
+    try {
+      const jsonValue = JSON.stringify(todos)
+      await AsyncStorage.setItem(
+        STORAGE_KEY,
+        jsonValue
+      )
+    }
+    catch( error ) {
+      console.log(error)
+    }
+  }
+
+  /* Loading the list of todos */
+  const loadList = async () => {
+    try{
+      const jsonValue = await AsyncStorage.getItem(STORAGE_KEY)
+      return jsonValue != null ? JSON.parse(jsonValue) : null
+    }
+    catch(error) {
+      console.log(error)
+    }
+  }
 
   return (
 
@@ -74,7 +114,7 @@ export default function App() {
             </View>
           </Modal>         
         <View style={ styles.content }>        
-          <AddTodo submitHandler={submitHandler}/>
+          <AddTodo submitHandler={ submitHandler }/>
           <View>
             <FlatList 
               data={ todos }
@@ -122,15 +162,15 @@ const styles = StyleSheet.create({
   },
   /* Style for the modal pop-up*/
   modal: {
-      flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'space-evenly',
-      backgroundColor: "#ffffff",
-      marginLeft: 40,
-      marginRight: 40,
-      marginTop: Platform.OS === 'ios' ? 160 : 200,
-      marginBottom: Platform.OS === 'ios' ? 160 : 200,
-      borderRadius: 10,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    backgroundColor: "#ffffff",
+    marginLeft: Platform.OS === 'ios' ? 30 : 40,
+    marginRight: Platform.OS === 'ios' ? 30 : 40,
+    marginTop: Platform.OS === 'ios' ? 160 : 200,
+    marginBottom: Platform.OS === 'ios' ? 160 : 200,
+    borderRadius: 10,
   },
   /* Title in the info modal */
   modalTitle: {

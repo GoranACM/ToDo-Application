@@ -5,6 +5,7 @@
 
 import React, { useState }  from 'react';
 import { StyleSheet, View, TextInput, Button } from 'react-native';
+import Toast, {DURATION} from 'react-native-easy-toast'
 
 export default function AddTodo({ submitHandler }) {
 
@@ -20,8 +21,18 @@ export default function AddTodo({ submitHandler }) {
                 style={styles.input}
                 placeholder='Start typing to add...'
                 onChangeText={ changeHandler }
+                ref={(input) => (_textInput = input)}
             />
             <Button onPress={ () => submitHandler(text) } title='add todo' color='#11a9b0' />
+            <View>
+                <Toast style={{backgroundColor:'red'}}
+                    position='top'
+                    positionValue={200}
+                    fadeInDuration={750}
+                    fadeOutDuration={1000}
+                    opacity={0.8}
+                    textStyle={{color:'red'}} />
+            </View>
         </View>
     )
 }

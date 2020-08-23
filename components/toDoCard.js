@@ -4,7 +4,8 @@
 // 2020
 
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, CheckBox } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, CheckBox, AsyncStorage  } from 'react-native';
+//import CheckBox from '@react-native-community/checkbox';
 
 export default function ToDoCard({ item, pressHandler }) {
     const [isSelected, setSelection] = useState(false);
@@ -18,8 +19,7 @@ export default function ToDoCard({ item, pressHandler }) {
                 <View style={styles.checkboxContainer}>
                     <CheckBox
                         value={isSelected}
-                        onValueChange={setSelection}
-                        style={styles.checkbox}               
+                        onValueChange={setSelection}                                     
                     /> 
                 </View>               
                 <Text 
@@ -54,8 +54,4 @@ const styles = StyleSheet.create({
         borderRadius: 50
     },
 
-    checkbox: {
-        alignSelf: "center",
-        
-    },
 });
