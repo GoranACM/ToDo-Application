@@ -13,6 +13,8 @@ import AddTodo from './components/addToDo';
 import ToDoCard from './components/toDoCard';
 import MyModal from './components/modal';
 
+import { mainStyle } from './styles/mainStyle';
+
 export default function App() {
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -87,35 +89,35 @@ export default function App() {
       Keyboard.dismiss();  /* Keyboard dismiss on side press */
     }}>
     
-      <View style={ styles.container }>
+      <View style={ mainStyle.container }>
         <Header />
-          <Icon style={styles.infoButton}
+          <Icon style={ mainStyle.infoButton }
             raised
             name='info-circle'
             type='font-awesome'
             color='#fff'
-            onPress={() => setModalVisible(!modalVisible)} 
+            onPress={ () => setModalVisible(!modalVisible) } 
           />
           <Modal
             animationType="fade"
             transparent={true}
-            visible={modalVisible}
+            visible={ modalVisible }
           >
-            <View style={styles.modalBackground}>
-                <View style={styles.modal}>
-                  <View style={styles.modalTitle}>
-                    <Text style={styles.modalTitleText}>HOW TO USE THE APP</Text>
+            <View style={ mainStyle.modalBackground }>
+                <View style={ mainStyle.modal }>
+                  <View style={ mainStyle.modalTitle }>
+                    <Text style={ mainStyle.modalTitleText }>HOW TO USE THE APP</Text>
                   </View>
                   <MyModal />
-                  <View style={styles.modalButton}>
-                    <Button title={"OKAY"} onPress={ () => { setModalVisible(!modalVisible) }} color={'#11a9b0'}/>
+                  <View style={ mainStyle.modalButton }>
+                    <Button title={ "OKAY" } onPress={ () => { setModalVisible(!modalVisible) }} color={'#11a9b0'}/>
                   </View>                
                 </View>                               
             </View>
           </Modal>         
-        <View style={ styles.content }>        
+        <View style={ mainStyle.content }>        
           <AddTodo submitHandler={ submitHandler }/>
-          <View style={styles.list}>
+          <View style={ mainStyle.list }>
             <FlatList 
               data={ todos }
               renderItem={({ item }) => (
@@ -129,63 +131,3 @@ export default function App() {
     </TouchableWithoutFeedback>     
   );
 }
-
-const styles = StyleSheet.create({
-  /* Style for the whole page */
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  /* Style for the body/content */
-  content: {
-    flex: 1,
-    padding: 40,
-    paddingBottom: 10
-  },
-  /* Style for the list */
-  list: {
-    flex: 1,
-    marginTop: 10,
-  },
-  /* Style for info button */
-  infoButton: {
-    position: 'absolute',
-    marginTop: 55,
-    right: 35,
-    textAlign: 'center',
-    fontSize: 35,
-    fontWeight: 'bold',
-  },
-  /* Style for modal background */
-  modalBackground: {
-    backgroundColor: "#000000aa", 
-    flex: 1,
-  },
-  /* Style for the modal pop-up*/
-  modal: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    backgroundColor: "#ffffff",
-    marginLeft: Platform.OS === 'ios' ? 30 : 40,
-    marginRight: Platform.OS === 'ios' ? 30 : 40,
-    marginTop: Platform.OS === 'ios' ? 160 : 200,
-    marginBottom: Platform.OS === 'ios' ? 160 : 200,
-    borderRadius: 10,
-  },
-  /* Title in the info modal */
-  modalTitle: {
-    borderBottomWidth: 3,
-    paddingBottom: 10,
-    borderBottomColor: 'gray'
-  },
-  modalTitleText: {
-    textAlign: 'center',
-    fontSize: 25,   
-  },
-  /* Button to close modal */
-  modalButton: {
-    marginLeft: 40,
-    marginRight: 40,
-  }
-});
