@@ -4,16 +4,17 @@
 // 2020
 
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, CheckBox, AsyncStorage  } from 'react-native';
-//import CheckBox from '@react-native-community/checkbox';
+import { StyleSheet, Text, View, TouchableOpacity, CheckBox } from 'react-native';
 
 export default function ToDoCard({ item, pressHandler }) {
+    
     const [isSelected, setSelection] = useState(false);
 
     return (
         <TouchableOpacity onPress={() => pressHandler(item.key)}>
             <View style={[
                 styles.item,
+                /* Change color of todo card on checkbox check */
                 {backgroundColor: isSelected ? "#11a9b0" : "white"}
             ]}>
                 <View style={styles.checkboxContainer}>
@@ -24,6 +25,7 @@ export default function ToDoCard({ item, pressHandler }) {
                 </View>               
                 <Text 
                     style={[
+                        /* Swap the text strikethrough on checkbox click */
                         {textDecorationLine: isSelected ? "line-through" : "none"},
                         styles.itemText,
                     ]}>{item.text}</Text>
@@ -33,6 +35,7 @@ export default function ToDoCard({ item, pressHandler }) {
 }
 
 const styles = StyleSheet.create({
+    /* Style for the todo card */
     item: {
         flexDirection: 'row',
         padding: 16,
@@ -43,12 +46,12 @@ const styles = StyleSheet.create({
         borderColor: '#11a9b0',
         borderRadius: 10,
     },
-
+    /* Style for the text in the todo card */
     itemText: {
         fontSize: 22,
         marginLeft: 10,
     },
-
+    /* Style for the checkbox container */
     checkboxContainer: {
         flexDirection: "row",
         borderRadius: 50
