@@ -115,7 +115,7 @@ export default function App() {
           </Modal>         
         <View style={ styles.content }>        
           <AddTodo submitHandler={ submitHandler }/>
-          <View>
+          <View style={styles.list}>
             <FlatList 
               data={ todos }
               renderItem={({ item }) => (
@@ -140,11 +140,12 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 40,
+    paddingBottom: 10
   },
   /* Style for the list */
   list: {
     flex: 1,
-    marginTop: 20,
+    marginTop: 10,
   },
   /* Style for info button */
   infoButton: {
